@@ -23,7 +23,6 @@ export default function Home({ products }: { products: Product[] }) {
 }
 
 export async function getStaticProps() {
-  let products: Product[] = [];
   const res = axios.get(`${process.env.WOO_URL}/wp-json/wc/v3/products`, {
     auth: {
       username: process.env.WOO_CONSUMER_KEY as string,
@@ -31,13 +30,7 @@ export async function getStaticProps() {
     },
   });
 
-  res
-    .then(function (response) {
-      products = response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const products: Product[] = (await res).data || [];
 
   return {
     props: {
