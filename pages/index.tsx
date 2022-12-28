@@ -1,4 +1,5 @@
 import * as Accordion from "@radix-ui/react-accordion";
+import axios from "axios";
 import { formatPrice } from "../utils";
 
 export default function Home({ products }: { products: Product[] }) {
@@ -22,8 +23,21 @@ export default function Home({ products }: { products: Product[] }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/products`);
-  const products = await res.json();
+  let products: Product[] = [];
+  const res = axios.get(`${process.env.WOO_URL}/wp-json/wc/v3/products`, {
+    auth: {
+      username: process.env.WOO_CONSUMER_KEY as string,
+      password: process.env.WOO_CONSUMER_SECRET as string,
+    },
+  });
+
+  res
+    .then(function (response) {
+      products = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
   return {
     props: {

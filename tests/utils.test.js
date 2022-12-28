@@ -7,6 +7,5 @@ describe("utils", () => {
     expect(formatPrice("2.50")).toBe("€\xa02,50");
     expect(formatPrice("3.559")).toBe("€\xa03,56");
     expect(formatPrice("0")).toBe("€\xa00,00");
-    expect(formatPrice("0")).toBe("€\xa00,00");
   });
 });
