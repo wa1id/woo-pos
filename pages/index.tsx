@@ -22,7 +22,7 @@ export default function Home({ products }: { products: Product[] }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/api/products");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/products`);
   const products = await res.json();
 
   return {

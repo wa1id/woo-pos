@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 export default async function handler(
   req: NextApiRequest,
